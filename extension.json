@@ -1,0 +1,6 @@
+{
+	"id": "poms-lookup",
+	"name": "POMS Lookup",
+	"fieldTypes": ["Symbol"],
+	"srcdoc": "./index.html"
+}

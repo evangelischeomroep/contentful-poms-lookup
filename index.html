@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8">
+    <title>POMS Lookup integration</title>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/contentful-ui-extensions-sdk@3/dist/cf-extension.css">
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <input id="mid" class="cf-form-input" type="text">
+    <button id="lookup" class="cf-btn-primary">Zoek op in POMS</button>
+
+    <script src="https://unpkg.com/contentful-ui-extensions-sdk@3"></script>
+    <script>
+      (function(document, window) {
+        var POMS_LOOKUP_URL = 'https://pomslookup.eo.nl';
+        var POMS_LOOKUP_PARAMS = '?profile=eo&limit=1';
+
+        var button = document.getElementById('lookup');
+        var input = document.getElementById('mid');
+
+        var popup;
+        var field;
+
+        /**
+         * Handles clicking on the "Zoek in POMS" button.
+         *
+         * Opens the POMS Lookup window.
+         */
+        function onButtonClick() {
+          var url = POMS_LOOKUP_URL + '/' + POMS_LOOKUP_PARAMS;
+
+          popup = window.open(url, 'POMS_Lookup');
+        }
+
+        /**
+         * Receives messages from the POMS Lookup window.
+         *
+         * Stores the selected MID in the input and in the Contentful field.
+         *
+         * @param {Event} event
+         */
+        function onMessage(event) {
+          var mid;
+          var origin = event.origin || event.originalEvent.origin;
+
+          if (origin === POMS_LOOKUP_URL && event.data && event.data.items && event.data.items.length) {
+            mid = event.data.items[0].mid;
+
+            input.value = mid;
+            field.setValue(mid);
+
+            popup.close();
+          }
+        }
+
+        /**
+         * Store entered value in the Contentful field.
+         *
+         * @param {Event} event
+         */
+        function onInput(event) {
+          field.setValue(event.target.value);
+        }
+
+        /**
+         * Initialize our extension.
+         *
+         * See https://github.com/contentful/ui-extensions-sdk/blob/master/docs/ui-extensions-sdk-frontend.md
+         *
+         * @param {Object} api
+         */
+        function initExtension(api) {
+          field = api.field;
+          input.value = field.getValue() || '';
+
+          input.addEventListener('input', onInput);
+          button.addEventListener('click', onButtonClick);
+          window.addEventListener('message', onMessage);
+        }
+
+        window.contentfulExtension.init(initExtension);
+
+      }(document, window));
+    </script>
+  </body>
+</html>
