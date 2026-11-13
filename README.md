@@ -1,6 +1,13 @@
-# Contentful POMS Lookup
+<img src="./.github/banner.svg" alt="contentful-poms-lookup" width="100%">
+
+<p align="center">A POMS Lookup button for MID fields in the Contentful editor.</p>
 
 Contentful UI Extension to add the POMS Lookup to the Contentful editor.
+
+## What it does
+
+- **Fills a field from POMS.** Editors click a button below a text field, pick an item in the POMS Lookup window, and its MID lands in the field.
+- **Takes a typed MID too.** Editors can also type or paste a MID straight into the field.
 
 ## Installation
 
@@ -24,28 +31,6 @@ After you uploaded the extension via the Contentful Extension CLI, you need to r
 
 Clicking on the "Zoek in POMS" button will open the POMS Lookup window. There you can search an item, select it and click the "Kies 1 geselecteerd item" button to close the POMS Lookup window again. The MID of the selected item should now be entered in the input field.
 
-## Development
+## Contributing
 
-For developer convenience, it is possible to host the extension locally instead of uploading it to Contentful. This is useful if you're making changes. Please note that this will affect all users using the extension in your space. But you already created a separate space for development, didn't you?
-
-Start the local development server and update the extension via the Contentful Extension CLI:
-
-```bash
-yarn start
-contentful-extension update --space-id MY_SPACE_ID --force --src "http://localhost:8080"
-```
-
-If you now open an entry that uses the extension in your browser it will use the code from your local machine. You need to enable insecure content since the Contentful editor is served through HTTPS but your extension is not. See here how to do it in [Firefox][https://support.mozilla.org/en-US/kb/mixed-content-blocking-firefox] and [Chrome][https://support.google.com/chrome/answer/1342714].
-
-Deploying `index.html` again, without having to run it locally, is as easy as:
-
-```bash
-contentful-extension update --space-id MY_SPACE_ID --force
-```
-
-## Useful resources
-
-- [Getting started with Contentful UI Extensions](https://github.com/contentful/extensions/tree/master/samples/rating-dropdown)
-- [Contentful UI Extensions SDK](https://github.com/contentful/ui-extensions-sdk)
-- [Contentful UI Extensions API Reference](https://github.com/contentful/ui-extensions-sdk/blob/master/docs/ui-extensions-sdk-frontend.md)
-- [Contentful Extension CLI](https://github.com/contentful/contentful-extension-cli)
+Working on this repo? [AGENTS.md](./AGENTS.md) has the setup, conventions and checks.
